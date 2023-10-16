@@ -1,0 +1,9 @@
+# Site settings
+title: ML Training Facility at Vanderbilt University
+author:
+  name: Andrew Melo
+  email: Andre.Melo@gmail.com
+description: "Quick Start Guide"
+
+# Build settings
+theme: jekyll-theme-slate
