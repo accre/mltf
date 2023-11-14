@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Your awesome titl
+title: Vanderbilt Machine Learning Training Facility
 email: mltf-support@list.vanderbilt.edu
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation for Vanderbilt's Machine Learning Training Facility
