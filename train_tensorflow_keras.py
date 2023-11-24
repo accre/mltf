@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 
+# This example makes use of TensorFlow and the Keras API to autolog model, paramters, etc. 
+
 import mlflow
 import tensorflow as tf
 import matplotlib.pyplot as plt
 
-mlflow.autolog()
+#the folling line is used to create an autolog entry on the MLflow server
+mlflow.tensorflow.autolog()
 
 def plot_save_dig(image_data, fig_name):
    plt.imshow(image_data, cmap="binary")
@@ -31,7 +34,9 @@ model.compile(loss="sparse_categorical_crossentropy",
 	optimizer="sgd",
 	metrics=["accuracy"])
 
-history = model.fit(X_train, y_train, epochs = 20,
+
+#MLflow autolog is launched upon the use of keras.fit() to train.
+history = model.fit(X_train, y_train, epochs = 5,
 		validation_data=(X_valid, y_valid))
 
 model.evaluate(X_test, y_test)
