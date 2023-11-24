@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Vanderbilt Machine Learning Training Facility
+title: Machine Learning Training Facility
 email: mltf-support@list.vanderbilt.edu
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation for Vanderbilt's Machine Learning Training Facility
@@ -28,7 +28,8 @@ url: "https://accre.github.io" # the base hostname & protocol for your site, e.g
 github_username:  accre
 
 # Build settings
-theme: minima
+theme: just-the-docs
+color_scheme: dark
 plugins:
   - jekyll-feed
 
