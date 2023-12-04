@@ -22,8 +22,8 @@ title: MLTF @ VU
 email: mltf-support@list.vanderbilt.edu
 description: >- # this means to ignore newlines until "baseurl:"
   Documentation for Vanderbilt's Machine Learning Training Facility
-baseurl: "/mltf" # the subpath of your site, e.g. /blog
-url: "https://accre.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "/" # the subpath of your site, e.g. /blog
+url: "https://docs.mltf.vu" # the base hostname & protocol for your site, e.g. http://example.com
 #twitter_username: jekyllrb
 github_username:  accre
 
