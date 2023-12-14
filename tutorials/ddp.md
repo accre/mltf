@@ -57,7 +57,7 @@ class SeqNet(nn.Module):
         x = F.log_softmax(x, dim=1)
         out = self.lin3(x)
         return out
-``
+```
 
 Next, a training function must be defined:
 ```python
