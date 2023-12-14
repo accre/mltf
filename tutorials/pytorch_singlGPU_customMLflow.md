@@ -7,7 +7,7 @@ Single-GPU Training (Custom Mlflow)
 This tutorial is meant to demonstrate the implementation of custom MLflow logging when `autolog()` is not appropraite, as well as to illustrate a simple transfer of a NN model onto a GPU for more efficient training for those not familiar with the process. We use the Pytorch library in this example. 
 
 First the necessary libraries must be imported:
-```
+```python
 import mlflow
 import torch
 from torch.utils.data import Dataset
@@ -20,7 +20,7 @@ import torch.optim as optim
 ```
 
 Next, we define a NN class composed of three linear layers with a _forward_ function to carry out the forward pass:
-```
+```python
 class SeqNet(nn.Module):
     def __init__(self, input_size, hidden_size1, hidden_size2,  output_size):
         super(SeqNet, self).__init__()
@@ -42,7 +42,7 @@ class SeqNet(nn.Module):
 ```
 
 Is is also useful in what is to follow to define an excplicit training function:
-```
+```python
 def train(model, train_loader, loss_function, optimizer, num_epochs):
     
     # Transfer model to device
@@ -69,7 +69,8 @@ def train(model, train_loader, loss_function, optimizer, num_epochs):
 
         average_loss = running_loss / len(train_loader)
 
-        # log "loss" in MLflow. This funcion must be called within "with mlflow.start_run():" in main code
+        # Log "loss" in MLflow. 
+        # This funcion must be called within "with mlflow.start_run():" in main code
         mlflow.log_metric("loss", average_loss, step=epoch)
 
         print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {average_loss:.4f}')
@@ -79,7 +80,7 @@ def train(model, train_loader, loss_function, optimizer, num_epochs):
 where we include a directive `model.to(device)` to transfer our model to a GPU (if available), and additional `to(device)` calls to move the data (images and labels, in this case) to the available device. We also include a call to `mlflow.log_metric` to to plot our loss function each epoch when the _train_ function is called.
 
 We can now write our main code block, which we want to completely wrap in a `with mlflow.start_run():` statement to start an MLflow run to be logged. We define some relevant parameters and create in instance of our "SeqNet" NN class:
-```
+```python
 #start MLflow run
 with mlflow.start_run():
 
@@ -100,7 +101,7 @@ with mlflow.start_run():
 where `torch.cuda.is_available()` is used to check for an available GPU and set `device` appropriately. We then send our new model to `device`. 
 
 We can now add code to choose our optimizer, set our loss function, and initialize our data. When using Pytorch, the use of the `DataLoader` API is recommended, as it provides scalability when training across multiple GPUs is of interest:
-```
+```python
   optimizer = torch.optim.Adam( my_net.parameters(), lr=lr)
   loss_function = nn.CrossEntropyLoss()
 
@@ -113,7 +114,7 @@ We can now add code to choose our optimizer, set our loss function, and initiali
 note that this code and what is to follow is still indented under the `with mlflow.start_run():` statement.
 
 We can now add code to train our model, while logging the model itself and any paramters of interest in MLflow:
-```
+```python
   train(my_net, fmnist_train_loader, loss_function, optimizer, num_epochs)
 
   #log params and model in current MLflow run

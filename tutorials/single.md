@@ -10,20 +10,20 @@ It is recommended to use MLflow's functionality in your training workflow, which
 
 First, an environment must be created with the appropriate Python version and necessary packages/libraries (please see the _Quickstart_ page for guidance on setting one up). 
 We can then import the libraries necessary to train our model:
-```
+```python
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_diabetes
 from sklearn.ensemble import RandomForestRegressor
 ```
 
 We import MLflow and activate the _autolog_ feature:
-```
+```python
 import mlflow
 mlflow.autolog()
 ```
 
 We can now load our data, train our model, and make predictions as usual:
-```
+```python
 # Load dataset
 db = load_diabetes()
 X_train, X_test, y_train, y_test = train_test_split(db.data, db.target)
