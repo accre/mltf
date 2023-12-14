@@ -7,7 +7,7 @@ Data-Parallel Training
 The purpose of this tutorial is to demonstrate the structure of Pytorch code means to parallelize large sets of data across multiple GPUs for efficient training. We make use of the Pytorch Distributed Data Parallel (DDP) implementation to accomplish this task in this example.
 
 First we import the necessary libraries:
-```
+```python
 import torch
 import mlflow
 from torch.utils.data import Dataset
@@ -25,7 +25,7 @@ import os
 ```
 
 Then we run the necessary DDP configuration:
-```
+```python
 def ddp_setup(rank, world_size):
     """
     rank: Unique id of each process
@@ -35,10 +35,11 @@ def ddp_setup(rank, world_size):
     os.environ["MASTER_PORT"] = "12355"
 
     init_process_group(backend="nccl", rank=rank, world_size=world_size)
-``` where "rank" is the unique identifier for each GPU/process, and "world_size" is the number of available GPUs where we will send each parallel process. The OS variables "MASTER_ADDR" and "MASTER_PORT" must also be set to establish communication amongst GPUs. The function defined here is standard and should work in most cases.
+``` 
+where "rank" is the unique identifier for each GPU/process, and "world_size" is the number of available GPUs where we will send each parallel process. The OS variables "MASTER_ADDR" and "MASTER_PORT" must also be set to establish communication amongst GPUs. The function defined here is standard and should work in most cases.
 
 We can now define our NN class as usual:
-```
+```python
 class SeqNet(nn.Module):
     def __init__(self, input_size, hidden_size1, hidden_size2,  output_size):
         super(SeqNet, self).__init__()
@@ -56,10 +57,10 @@ class SeqNet(nn.Module):
         x = F.log_softmax(x, dim=1)
         out = self.lin3(x)
         return out
-```
+``
 
 Next, a training function must be defined:
-```
+```python
 def train(model, train_loader, loss_function, optimizer, rank, num_epochs):
     model.to(rank)
     model = DDP(model, device_ids=[rank])
@@ -91,7 +92,7 @@ def train(model, train_loader, loss_function, optimizer, rank, num_epochs):
 which involves the standard steps of training in a single-device case, but where our model must be wrapped in DDP by the `model = DDP(model, device_ids=[rank])` directive.
 
 It is also necessary to define a function to prepare our DataLoaders, which will handle the distribution of data across different processes/GPUs::
-```
+```python
 def prepare_dataloader(dataset, batch_size):
     return DataLoader(
         dataset,
@@ -104,7 +105,7 @@ def prepare_dataloader(dataset, batch_size):
 ```
 
 Using DDP also required the explicit definition of a "main" function, as it will be called in different devices:
-```
+```python
 def main(rank, world_size):
     ddp_setup(rank, world_size)
 
@@ -135,7 +136,7 @@ def main(rank, world_size):
 Note that the clean-up function `destroy_process_group()` must be called at the end of "main".
 
 We can now write the part of our code that will check for the number of available GPUs and distribute our "main" function, with its corresponding part of the data, to the appropriate GPU using `mp.spawn()`.:
-```
+```python
 if __name__ == "__main__":
     world_size = torch.cuda.device_count() # gets number of available GPUs 
 
