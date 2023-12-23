@@ -50,7 +50,6 @@ def train(model, train_loader, loss_function, optimizer, num_epochs):
 
         for i ,(images,labels) in enumerate(train_loader):
             images = torch.div(images, 255.)
-            images, labels = images.to(device), labels.to(device)
 
             optimizer.zero_grad()
             outputs = model(images)
@@ -81,7 +80,6 @@ lr = 0.01
 if not torch.cuda.is_available():
   sys.exit("A minimum of 2 GPUs must be available to train this model.")
 
-print("Training on device: ", device)
 my_net = SeqNet(input_size, hidden_size1, output_size)
 
 optimizer = torch.optim.Adam( my_net.parameters(), lr=lr)
