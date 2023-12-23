@@ -42,7 +42,7 @@ def train(model, train_loader, loss_function, optimizer, num_epochs):
 
         for i ,(images,labels) in enumerate(train_loader):
             images = torch.div(images, 255.)
-            images, labels = images.to(device), labels.to(device)
+#            images, labels = images.to(device), labels.to(device)
         
             optimizer.zero_grad()
             outputs = model(images)
@@ -70,9 +70,9 @@ lr = 0.01
 if not torch.cuda.is_available():
   sys.exit("A minimum of 2 GPUs must be available to train this model.")
 
-print("Training on device: ", device)
+#print("Training on device: ", device)
 my_net = SeqNet(input_size, hidden_size1, output_size)
-my_net = my_net.to(device)
+#my_net = my_net.to(device)
 
 
 optimizer = torch.optim.Adam( my_net.parameters(), lr=lr) 
@@ -86,6 +86,7 @@ fmnist_test_loader = DataLoader(fmnist_test, batch_size=batch_size, shuffle=True
 
 train(my_net, fmnist_train_loader, loss_function, optimizer, num_epochs) 
 
+"""
 correct = 0
 total = 0
 for images,labels in fmnist_test_loader:
@@ -96,5 +97,5 @@ for images,labels in fmnist_test_loader:
   _, predicted = torch.max(output,1)
   correct += (predicted == labels).sum()
   total += labels.size(0)
-
 print('Accuracy of the model: %.3f %%' %((100*correct)/(total+1)))
+"""
