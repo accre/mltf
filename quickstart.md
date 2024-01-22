@@ -7,27 +7,27 @@ Quickstart
 Upon accessing your main terminal at ACCRE, the best approach to begin training is to create a Python 3.10 virtual environment.
 First, the necessary modules must be loaded:
 
-```
+```bash
 module load GCCcore/.11.3.0
 module load Python/3.10.4
 ```
 Then create and activate a virtual environment:
-```
+```bash
 python3.10 -m venv <my_venv>
 source <my_venv>/bin/activate
 ```
 We can now upgrade *pip*, and install any packages needed:
-```
+```bash
 pip install --upgrade pip wheel
 pip install <packages you want>
 ```
 To access the MLflow functionality incorporated at ACCRE, the following packages must be installed:
-```
+```bash
 pip install mlflow
 pip install mlflow-token
 ```
 The appropriate MLflow server path must be set, and the token activated:
-```
+```bash
 export MLFLOW_TRACKING_URI=https://mlflow-test.mltf.k8s.accre.vanderbilt.edu
 export $(mlflow-token)
 ```
@@ -38,7 +38,7 @@ Note that upon exporting *mlflow-token*, it may be necessary to access a login p
 Once necessary modules and packages are in place, one can train with custom worflows and python code as usual.
 
 It is recommended to use MLflow's functionality in your training workflow, which facilitates MLTF's goal of providing scalability and reproducibility by tracking model metrics, saving model parameters and attributes, and facilitating deployment when the time comes. We provide a tracking server to host MLflow run data. Automatic MLflow tracking is available in many popular ML training frameworks, such as Sci-kit Learn, TernsorFlow (via Keras), and Pytoch (via Lightning), and can be easily implemented by incorporating the following into your Python code:
-```
+```python
 import mlflow
 mlflow.autolog()
 ```
@@ -56,7 +56,7 @@ Upon selecting the approprate run from the list, the UI menu on the left allows 
 
 A simple example that makes use of MLflow's `autolog()` funcionality to save/track model files, parameters, and metrics can be seen below. Here we make use of the Scikit-learn library to train a random forrest regressor.  
 
-```
+```python
 import mlflow
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_diabetes
