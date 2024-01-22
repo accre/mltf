@@ -1,6 +1,7 @@
 ---
 layout: default
 parent: Tutorials
+nav_order: 5
 ---
 Model Parallel
 ==============

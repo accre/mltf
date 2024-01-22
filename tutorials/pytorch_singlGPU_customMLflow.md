@@ -1,6 +1,7 @@
 ---
 layout: default
 parent: Tutorials
+nav_order: 3
 ---
 Single-GPU Training (Custom Mlflow) 
 ============

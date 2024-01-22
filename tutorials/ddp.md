@@ -1,7 +1,9 @@
 ---
 layout: default
 parent: Tutorials
+nav_order: 4
 ---
+    
 Data-Parallel Training
 ======================
 The purpose of this tutorial is to demonstrate the structure of Pytorch code means to parallelize large sets of data across multiple GPUs for efficient training. We make use of the Pytorch Distributed Data Parallel (DDP) implementation to accomplish this task in this example.

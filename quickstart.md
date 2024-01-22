@@ -1,3 +1,7 @@
+---
+nav_order: 4
+---
+
 Quickstart
 ==========
 Upon accessing your main terminal at ACCRE, the best approach to begin training is to create a Python 3.10 virtual environment.
