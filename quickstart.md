@@ -4,59 +4,80 @@ nav_order: 4
 
 Quickstart
 ==========
-Upon accessing your main terminal at ACCRE, the best approach to begin training is to create a Python 3.10 virtual environment.
-First, the necessary modules must be loaded:
+Upon accessing your main terminal at ACCRE, the best approach to begin training
+is to create a Python 3.10 virtual environment.  First, the necessary modules
+must be loaded:
 
 ```bash
-module load GCCcore/.11.3.0
-module load Python/3.10.4
+module load GCCcore/.11.3.0 Python/3.10.4
 ```
 Then create and activate a virtual environment:
 ```bash
-python3.10 -m venv <my_venv>
-source <my_venv>/bin/activate
+python3.10 -m venv quickstart
+source quickstart/bin/activate
 ```
 We can now upgrade *pip*, and install any packages needed:
 ```bash
 pip install --upgrade pip wheel
-pip install <packages you want>
+pip install scikit-learn pandas
 ```
-To access the MLflow functionality incorporated at ACCRE, the following packages must be installed:
+To access the MLflow functionality incorporated at ACCRE, the following
+packages must be installed:
 ```bash
-pip install mlflow
-pip install mlflow-token
+pip install mlflow==2.9.2 mlflow-token
 ```
+
 The appropriate MLflow server path must be set, and the token activated:
 ```bash
 export MLFLOW_TRACKING_URI=https://mlflow-test.mltf.k8s.accre.vanderbilt.edu
 export $(mlflow-token)
 ```
-Note that upon exporting *mlflow-token*, it may be necessary to access a login page and enter credentials via browser when prompted.
+Note that upon exporting *mlflow-token*, it will be necessary to access a login
+page and enter your ACCRE credentials via browser when prompted.
 
 ## Training a Model
 
-Once necessary modules and packages are in place, one can train with custom worflows and python code as usual.
+Once necessary modules and packages are in place, one can train with custom
+worflows and python code as usual.
 
-It is recommended to use MLflow's functionality in your training workflow, which facilitates MLTF's goal of providing scalability and reproducibility by tracking model metrics, saving model parameters and attributes, and facilitating deployment when the time comes. We provide a tracking server to host MLflow run data. Automatic MLflow tracking is available in many popular ML training frameworks, such as Sci-kit Learn, TernsorFlow (via Keras), and Pytoch (via Lightning), and can be easily implemented by incorporating the following into your Python code:
+It is recommended to use MLflow's functionality in your training workflow,
+which facilitates MLTF's goal of providing scalability and reproducibility by
+tracking model metrics, saving model parameters and attributes, and
+facilitating deployment when the time comes. We provide a tracking server to
+host MLflow run data. Automatic MLflow tracking is available in many popular ML
+training frameworks, such as Sci-kit Learn, TernsorFlow (via Keras), and Pytoch
+(via Lightning), and can be easily implemented by incorporating the following
+into your Python code: 
 ```python
 import mlflow
 mlflow.autolog()
 ```
-It is worth noting that `autolog()` is designed to function when training with standard-practice methods and modules, and updated versions in each framework. More information on `autolog()` can be found [here](https://mlflow.org/docs/latest/tracking/autolog.html). For custom environments with custom usage and package versions, a better option is to implement custom MLflow tracking. Examples of custom MLflow tracking implementations can be seen in the _Tutorials_ section.
+It is worth noting that `autolog()` is designed to function when training with
+standard-practice methods and modules, and updated versions in each framework.
+More information on `autolog()` can be found
+[here](https://mlflow.org/docs/latest/tracking/autolog.html). For custom
+environments with custom usage and package versions, a better option is to
+implement custom MLflow tracking. Examples of custom MLflow tracking
+implementations can be seen in the _Tutorials_ section.
 
 ## Accessing MLflow Run Information
-Upon successfully training and logging a model, MLflow's UI can be accessed to see run details.
-This can be accessed via browser at:
+Upon successfully training and logging a model, MLflow's UI can be accessed to
+see run details.  This can be accessed via browser at:
 [mlflow-test.mltf.k8s.accre.vanderbilt.edu](mlflow-test.mltf.k8s.accre.vanderbilt.edu)
 Note that login credentials may be necessary.
 
-Upon selecting the approprate run from the list, the UI menu on the left allows the user to see model parameters, plot metrics, and export code to make predctions and reproduce runs.
+Upon selecting the approprate run from the list, the UI menu on the left allows
+the user to see model parameters, plot metrics, and export code to make
+predctions and reproduce runs.
 
 ## Simple Training Example
 
-A simple example that makes use of MLflow's `autolog()` funcionality to save/track model files, parameters, and metrics can be seen below. Here we make use of the Scikit-learn library to train a random forrest regressor.  
+A simple example that makes use of MLflow's `autolog()` funcionality to
+save/track model files, parameters, and metrics can be seen below. Here we make
+use of the Scikit-learn library to train a random forrest regressor.  
 
 ```python
+#!/usr/bin/env python
 import mlflow
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_diabetes
