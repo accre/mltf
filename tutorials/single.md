@@ -9,7 +9,7 @@ In this tutorial we enable MLflows `autolog()` functionality to log the training
 
 It is recommended to use MLflow's functionality in your training workflow, which facilitates MLTF's goal of providing scalability and reproducibility by tracking model metrics, saving model parameters and attributes, and facilitating deployment when the time comes. We provide a tracking server to host MLflow run data. Automatic MLflow tracking is available in many popular ML training frameworks, such as Sci-kit Learn, TernsorFlow (via Keras), and Pytoch (via Lightning), and can be easily implemented by incorporating the following into your Python code:
 
-First, an environment must be created with the appropriate Python version and necessary packages/libraries (please see the _Quickstart_ page for guidance on setting one up). 
+First, an environment must be created with the appropriate Python version and necessary packages/libraries (please see the [quickstart](../quickstart.html) page for guidance on setting one up). 
 We can then import the libraries necessary to train our model:
 ```python
 from sklearn.model_selection import train_test_split
