@@ -4,36 +4,78 @@ nav_order: 4
 
 Quickstart
 ==========
-Upon accessing your main terminal at ACCRE, the best approach to begin training
-is to create a Python 3.10 virtual environment.  First, the necessary modules
-must be loaded:
+Using MLTF at ACCRE is a straightforward process. We can quickly demonstrate
+the framework on a single CPU with the instructions below. The
+[tutorials](tutorials) page will expand on this quickstart to demonstrate how
+to connect and train with GPUs
+
+## Environment Setup
+The first part of any training is to set up a Python environment, and to do
+that, we should first load a more up-to-date version of Python than what comes
+with operating system. At ACCRE, we can load Python 3.10 via [lmod](https://www.vanderbilt.edu/accre/documentation/lmod-guide/):
 
 ```bash
 module load GCCcore/.11.3.0 Python/3.10.4
 ```
-Then create and activate a virtual environment:
+
+Alternately, arbitrary versions of Python can be loaded via [pyenv](https://github.com/pyenv/pyenv), if you first load pyenv via lmod:
+```bash
+module load pyenv
+```
+
+Once Python is loaded, you can then create a [virtual environment](https://realpython.com/python-virtual-environments-a-primer/): 
 ```bash
 python3.10 -m venv quickstart
+```
+
+With the virtual environment created, you can then activate the environment by
+executing:
+```bash
 source quickstart/bin/activate
 ```
-We can now upgrade *pip*, and install any packages needed:
+Python's virtual environments are a key part of reproducibility, providing
+separate and isolated locations to install packages for each project. Once a
+virtual environment is activated, we can use the *pip* package manager to
+install packages to it.  We can now upgrade *pip*, and install `scikit-learn`
+and `pandas` to our environment:
 ```bash
 pip install --upgrade pip wheel
 pip install scikit-learn pandas
 ```
+
 To access the MLflow functionality incorporated at ACCRE, the following
-packages must be installed:
+packages must be installed as well. Note that *pip* allows you to specify the
+exact version of a package to install (instead of choosing the latest).
 ```bash
 pip install mlflow==2.9.2 mlflow-token
 ```
 
-The appropriate MLflow server path must be set, and the token activated:
+Note, if you decide to later connect in a new terminal, you will need to both
+load the Python modules and then re-activate the environment. All your installed
+packaged remain persistently, so you do not need to re-run pip again.
+
+## Configuration
+The environment above will remain permenantly if you log on and off. To access
+MLTF, there are a couple configuration values that need to be set in your
+terminal.
+
+First, the appropriate MLFlow server URL must me set. This URL is both used by
+training jobs to upload their outputs as well as provides a web interface for you
+to examine any stored outputs and metrics.
 ```bash
 export MLFLOW_TRACKING_URI=https://mlflow-test.mltf.k8s.accre.vanderbilt.edu
+```
+
+Second, in order for the training job to upload outputs, your command line needs
+to be logged into the MLFlow server. From within the virtual environment, you
+can log in by executing
+```bash
 export $(mlflow-token)
 ```
-Note that upon exporting *mlflow-token*, it will be necessary to access a login
-page and enter your ACCRE credentials via browser when prompted.
+
+The `mlflow-token` command will return a login page, which you can connect with
+your ACCRE credentials. These tokens last for 24 hours by default, so it's
+necessary to periodically re-renew them.
 
 ## Training a Model
 
@@ -64,7 +106,7 @@ implementations can be seen in the _Tutorials_ section.
 Upon successfully training and logging a model, MLflow's UI can be accessed to
 see run details.  This can be accessed via browser at:
 [mlflow-test.mltf.k8s.accre.vanderbilt.edu](mlflow-test.mltf.k8s.accre.vanderbilt.edu)
-Note that login credentials may be necessary.
+You will need to use your ACCRE credentials to access the UI.
 
 Upon selecting the approprate run from the list, the UI menu on the left allows
 the user to see model parameters, plot metrics, and export code to make
