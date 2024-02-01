@@ -51,7 +51,7 @@ This command will return a login page, where you can connect with your ACCRE cre
 
 ## Creating an MLflow Project
 
-An MLflow Project can be contained in any directory, which should contain at least three basic components to function as intended. We first need a file named **MLproject**. This is a text file in YAML syntax that will specify a project name, a file containing our package requirements for training the model, and an entry point stating the command used to launch our training script. A minimal **MLproject** file can be seen here:
+An MLflow Project is housed in a standard directory and should contain at least three basic components to function as intended. We first need a file named **MLproject**. This is a text file in YAML syntax that will specify a project name, a file containing our package requirements for training the model, and an entry point stating the command used to launch our training script. A minimal **MLproject** file can be seen here:
 ```
 name: My MLflow Project
 
