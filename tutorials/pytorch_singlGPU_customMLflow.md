@@ -22,7 +22,11 @@ tqdm==4.66.1
 In addition to these, we will also install two packages that will allow us to track system metrics on our MLflow server. This will allow us to monitor CPU/GPU usage, memory usage, etc.:
 ```bash
 pip install psutil
+<<<<<<< HEAD
 pup install pynvml
+=======
+pip install pynvml
+>>>>>>> 0961f75464f27217dd2ff795166de6c7b183781b
 ```
 and now we will activate the environemnt variable related to system metrics tracking:
 ```bash
