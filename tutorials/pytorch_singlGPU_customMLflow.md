@@ -5,7 +5,31 @@ nav_order: 3
 ---
 Single-GPU Training (Custom Mlflow) 
 ============
-This tutorial is meant to demonstrate the implementation of custom MLflow logging when `autolog()` is not appropraite, as well as to illustrate a simple transfer of a NN model onto a GPU for more efficient training for those not familiar with the process. We use the Pytorch library in this example. 
+This tutorial is meant to demonstrate the implementation of custom MLflow logging when `autolog()` is not appropraite, as well as to illustrate a simple transfer of a NN model onto a GPU for more efficient training for those not familiar with the process. We use the Pytorch library in this example, and it is assumed that you have followed the steps to create a virtual environment (see [Quickstart](https://docs.mltf.vu/quickstart.html)). The packages you will need to run this Python script are the following:
+``` 
+mlflow==2.8.1
+astunparse==1.6.3
+cloudpickle==2.2.1
+numpy==1.26.0
+packaging==23.2
+pandas==2.1.1
+pynvml==11.5.0
+pyyaml==6.0.1
+torch==2.1.1
+torchvision==0.16.1
+tqdm==4.66.1
+```
+In addition to these, we will also install two packages that will allow us to track system metrics on our MLflow server. This will allow us to monitor CPU/GPU usage, memory usage, etc.:
+```bash
+pip install psutil
+pup install pynvml
+```
+and now we will activate the environemnt variable related to system metrics tracking:
+```bash
+export MLFLOW_LOG_SYSTEM_METRICS=true
+```
+
+We can now begin writing the Python script that will create and train our model.
 
 First the necessary libraries must be imported:
 ```python
