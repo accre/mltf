@@ -42,5 +42,3 @@ be easily run within MLFlow with few-to-no changes. However, users who choose
 to integrate MLFlow more deeply within their applications will gain added
 functionality, such as the ability to track losses over time or CPU/GPU
 performance.
-
-{% includelines testfile.py 2 1 %}
