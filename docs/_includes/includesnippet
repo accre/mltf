@@ -18,7 +18,8 @@ Example:
 {%- capture filecontent  -%}
 {%-   include {{include.filename}}  -%}
 {%- endcapture -%}
-{%- assign lines = filecontent | rstrip | newline_to_br | split: '<br />'  -%}
+{%- assign lines = filecontent | rstrip | split: "
+"  -%}
 {%- assign start = {{include.start}}  -%}
 {%- assign count = {{include.count}} -%}
 {%- for line in lines  -%}
@@ -30,6 +31,10 @@ Example:
 {%-     assign count = end | minus: start -%}
 {%-   endif -%}
 {%- endfor -%}
-{%- for line in lines offset: {{start}} limit: {{count}} -%}
-  {{- line | rstrip -}}
-{%- endfor -%}
+{% for line in lines offset: {{start}} limit: {{count}} -%}
+{% if forloop.last -%}
+{{- line | rstrip -}}
+{%- else -%}
+{{- line | rstrip }}
+{% endif -%}
+{% endfor -%}
