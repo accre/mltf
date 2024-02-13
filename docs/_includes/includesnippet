@@ -1,0 +1,35 @@
+{%- comment -%}{% raw %}<!--
+Includes the specified lines from an include file.
+
+Usage:
+  {% include includelines filename=PATH start=INT count=INT %}
+
+  filename: path to file under _includes
+  start: first line to include, starting at 1
+  starttext: begin with line containing specified text
+  count: number of lines to include
+  endtext: ends with line containing specified text
+
+Example:
+
+  {% include includelines filename='src/HelloWorld.java' start=10 count=5 %}
+  
+-->{% endraw %}{%- endcomment -%}
+{%- capture filecontent  -%}
+{%-   include {{include.filename}}  -%}
+{%- endcapture -%}
+{%- assign lines = filecontent | rstrip | newline_to_br | split: '<br />'  -%}
+{%- assign start = {{include.start}}  -%}
+{%- assign count = {{include.count}} -%}
+{%- for line in lines  -%}
+{%-   if line contains {{include.starttext}} -%}
+{%-     assign start = forloop.index | minus: 1 -%}
+{%-   endif -%}
+{%-   if line contains {{include.endtext}} -%}
+{%-     assign end = forloop.index | decrement -%}
+{%-     assign count = end | minus: start -%}
+{%-   endif -%}
+{%- endfor -%}
+{%- for line in lines offset: {{start}} limit: {{count}} -%}
+  {{- line | rstrip -}}
+{%- endfor -%}
