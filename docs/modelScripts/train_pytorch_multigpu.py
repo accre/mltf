@@ -18,8 +18,6 @@ from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.distributed import init_process_group, destroy_process_group
 import os
 
-mlflow.autolog()
-
 def ddp_setup(rank, world_size):
     """
     rank: Unique id of each process
@@ -72,9 +70,9 @@ def train(model, train_loader, loss_function, optimizer, rank, num_epochs):
  
       average_loss = running_loss / len(train_loader)
       if rank == 0:
-        print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {average_loss:.4f}')
+        print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {average_loss:.4f}")
 
-    print('Training on GPU ' + str(rank) + ' finished.')
+    print("Training on GPU " + str(rank) + " finished.")
 
 def prepare_dataloader(dataset, batch_size):
     return DataLoader(
@@ -89,7 +87,7 @@ def prepare_dataloader(dataset, batch_size):
 def main(rank, world_size):
     ddp_setup(rank, world_size)
 
-    #model and parameters
+    # Model and parameters
     input_size = 784
     hidden_size1 = 200
     hidden_size2 = 200

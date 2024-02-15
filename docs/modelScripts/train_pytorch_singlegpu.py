@@ -62,7 +62,7 @@ def train(model, train_loader, loss_function, optimizer, num_epochs):
 
         print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {average_loss:.4f}')
 
-    print("Training finihed.")
+    print("Training finished.")
 
 
 # Start MLflow run

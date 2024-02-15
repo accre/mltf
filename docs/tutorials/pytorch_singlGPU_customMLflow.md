@@ -42,7 +42,7 @@ Next, we define a NN class composed of three linear layers with a _forward_ func
 
 ```
 
-Is is also useful in what is to follow to define an excplicit training function:
+It is also useful in what is to follow to define an excplicit training function:
 ```python
 {% include _includes/includesnippet filename='modelScripts/train_pytorch_singlegpu.py' starttext='def train' endtext='print("Training finished.")' %}
 ```
