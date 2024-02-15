@@ -27,6 +27,6 @@ We can now load our data, train our model, and make predictions as usual:
 
 By accessing the MLflow UI, it can be seen that this run will save two datasets (training and evaluation), 17 model parameters, 5 metrics, and a range of model files and artifacts. 
 
-{: .highlight }
+{: .note }
 Download the full script used in this example [here](https://github.com/accre/mltf/blob/main/docs/modelScripts/train_sklearn.py)
 

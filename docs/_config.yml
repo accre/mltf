@@ -35,6 +35,9 @@ color_scheme: dark
 callouts:
   highlight:
     color: blue
+  note:
+    title: 
+    color: blue
 
 #plugins:
 #  - jekyll-feed
