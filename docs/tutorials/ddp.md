@@ -10,7 +10,7 @@ The purpose of this tutorial is to demonstrate the structure of Pytorch code mea
 
 First we import the necessary libraries:
 ```python
-{% include _includes/includesnippet filename='modelScripts/train_pytorch_multigpu.py' starttext='import torch' endtext='import os' %}
+{% include _includes/includesnippet filename='modelScripts/train_pytorch_multigpu.py' starttext='import torch ' endtext='import os' %}
 ```
 
 Then we run the necessary DDP configuration:
@@ -47,3 +47,4 @@ We can now write the part of our code that will check for the number of availabl
 ```
 {: .note }
 Download the full script used in this example [here](https://github.com/accre/mltf/blob/main/docs/modelScripts/train_pytorch_multigpu.py)
+

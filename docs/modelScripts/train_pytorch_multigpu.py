@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 #This example trais a Pytorch model using DDP, which parallelized data
 #across miltiple GPUs
 #note: MLflow autolog is not functional on the latest version of Pytorch
