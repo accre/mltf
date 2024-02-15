@@ -33,8 +33,6 @@ color_scheme: dark
 
 #Set callout colors
 callouts:
-  highlight:
-    color: blue
   note:
     title: 
     color: yellow

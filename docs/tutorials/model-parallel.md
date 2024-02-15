@@ -27,6 +27,7 @@ We can now continue our training as usual:
 ```python
 {% include _includes/includesnippet filename='modelScripts/train_pytorch_modelParallel.py' starttext='input_size = 784' endtext=', num_epochs)' %}
 ```
+
 {: .note }
 Download the full script used in this example [here](https://github.com/accre/mltf/blob/main/docs/modelScripts/train_pytorch_modelParallel.py)
 

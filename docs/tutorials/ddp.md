@@ -45,6 +45,7 @@ We can now write the part of our code that will check for the number of availabl
 ```python
 {% include _includes/includesnippet filename='modelScripts/train_pytorch_multigpu.py' starttext='if __name__ == "__main__":' endtext='nprocs=world_size)'%}
 ```
+
 {: .note }
 Download the full script used in this example [here](https://github.com/accre/mltf/blob/main/docs/modelScripts/train_pytorch_multigpu.py)
 

@@ -5,7 +5,7 @@
 #note: MLflow autolog is not functional on the latest version of Pytorch
 
 
-import torch
+import torch 
 import mlflow
 from torch.utils.data import Dataset
 from torchvision import datasets

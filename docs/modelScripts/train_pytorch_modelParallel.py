@@ -3,7 +3,7 @@
 #This example trains a sequential nueral network and logs
 #our model and some paramterts/metric of interest with MLflow
 
-import torch
+import torch 
 from torch.utils.data import Dataset
 from torchvision import datasets
 from torchvision.transforms import ToTensor
