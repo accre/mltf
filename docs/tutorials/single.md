@@ -17,24 +17,16 @@ We can then import the libraries necessary to train our model:
 
 We import MLflow and activate the _autolog_ feature:
 ```python
-import mlflow
-mlflow.autolog()
+{% include _includes/includesnippet filename='modelScripts/train_sklearn.py' starttext='import mlflow' endtext='mlflow.autolog()' %}
 ```
 
 We can now load our data, train our model, and make predictions as usual:
 ```python
-# Load dataset
-db = load_diabetes()
-X_train, X_test, y_train, y_test = train_test_split(db.data, db.target)
-
-# Create and train models.
-rf = RandomForestRegressor(n_estimators=100, max_depth=6, max_features=3)
-rf.fit(X_train, y_train)
-
-# Use the model to make predictions on the test dataset.
-predictions = rf.predict(X_test)
+{% include _includes/includesnippet filename='modelScripts/train_sklearn.py' starttext='# Load dataset' endtext='predictions = rf.predict(X_test)' %}
 ```
 
 By accessing the MLflow UI, it can be seen that this run will save two datasets (training and evaluation), 17 model parameters, 5 metrics, and a range of model files and artifacts. 
 
+{: .highlight }
+Download the full script used in this example [here](https://github.com/accre/mltf/blob/main/docs/modelScripts/train_sklearn.py)
 
