@@ -1,7 +1,7 @@
+#!/usr/bin/env python3
+
 #Simple scikit-learn random forrest regressor, with MLflow autolog capabilities. 
 #This will track and save the model, paramters, metrics, and data on the MLflow server 
-
-#!/usr/bin/env python3
 
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_diabetes

@@ -119,21 +119,7 @@ save/track model files, parameters, and metrics can be seen below. Here we make
 use of the Scikit-learn library to train a random forrest regressor.  
 
 ```python
-#!/usr/bin/env python
-import mlflow
-from sklearn.model_selection import train_test_split
-from sklearn.datasets import load_diabetes
-from sklearn.ensemble import RandomForestRegressor
-
-mlflow.autolog()
-
-db = load_diabetes()
-X_train, X_test, y_train, y_test = train_test_split(db.data, db.target)
-
-# Create and train models.
-rf = RandomForestRegressor(n_estimators=100, max_depth=6, max_features=3)
-rf.fit(X_train, y_train)
-
-# Use the model to make predictions on the test dataset.
-predictions = rf.predict(X_test)
+{% include _includes/includesnippet filename='modelScripts/train_sklearn.py' starttext='#!/usr/bin/env python3' endtext='predictions = rf.predict(X_test)' %}
 ```
+{: .note }
+Download this script [here](https://github.com/accre/mltf/blob/main/docs/modelScripts/train_sklearn.py)

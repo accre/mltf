@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 #This example trains a sequential nueral network and logs
 #our model and some paramterts/metric of interest with MLflow
 
@@ -10,12 +12,6 @@ from torch.utils.data import DataLoader
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-import torch.multiprocessing as mp
-from torch.utils.data.distributed import DistributedSampler
-from torch.nn.parallel import DistributedDataParallel as DDP
-from torch.distributed import init_process_group, destroy_process_group
-import os
-
 
 class SeqNet(nn.Module):
     def __init__(self, input_size, hidden_size1, hidden_size2,  output_size):
@@ -36,6 +32,8 @@ class SeqNet(nn.Module):
         return out
 
 def train(model, train_loader, loss_function, optimizer, num_epochs):
+
+    # Transfer model to device
     model.to(device)
 
     for epoch in range(num_epochs):
@@ -43,9 +41,10 @@ def train(model, train_loader, loss_function, optimizer, num_epochs):
         running_loss = 0.0
         model.train()
 
-
         for i ,(images,labels) in enumerate(train_loader):
             images = torch.div(images, 255.)
+
+            # Transfer data tensors to device
             images, labels = images.to(device), labels.to(device)
         
             optimizer.zero_grad()
@@ -57,15 +56,16 @@ def train(model, train_loader, loss_function, optimizer, num_epochs):
      
         average_loss = running_loss / len(train_loader)
 
-#log "loss" in MLflow. This funcion must be called within "with mlflow.start_run():" in main code
+        # Track "loss" in MLflow. 
+        # This "train" funcion must be called within "with mlflow.start_run():" in main code
         mlflow.log_metric("loss", average_loss, step=epoch)
 
         print(f'Epoch [{epoch + 1}/{num_epochs}], Loss: {average_loss:.4f}')
 
-    print('Training finished.')
+    print("Training finihed.")
 
 
-#start MLflow run
+# Start MLflow run
 with mlflow.start_run():  
   
   input_size = 784
