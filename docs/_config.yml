@@ -30,6 +30,12 @@ github_username:  accre
 # Build settings
 theme: just-the-docs
 color_scheme: dark
+
+#Set callout colors
+callouts:
+  highlight:
+    color: blue
+
 #plugins:
 #  - jekyll-feed
 

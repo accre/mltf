@@ -3,13 +3,13 @@
 
 #!/usr/bin/env python3
 
-import mlflow
 from sklearn.model_selection import train_test_split
 from sklearn.datasets import load_diabetes
 from sklearn.ensemble import RandomForestRegressor
-
+import mlflow
 mlflow.autolog()
 
+# Load dataset
 db = load_diabetes()
 X_train, X_test, y_train, y_test = train_test_split(db.data, db.target)
 
