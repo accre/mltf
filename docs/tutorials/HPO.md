@@ -24,7 +24,7 @@ To use Optuna in our training scripts, we first import the Optuna package (in ad
 ```python
 import optuna
 ``` 
-For the model detailed in [Single-GPU Training (Custom Mlflow)](({% link pytorch_singlGPU_customMLflow.md %}), ignoring MLflow-related code, our `objective` function looks like this :
+For the model detailed in [Single-GPU Training (Custom Mlflow)](https://docs.mltf.vu/tutorials/pytorch_singlGPU_customMLflow.html), ignoring MLflow-related code, our `objective` function looks like this :
 
 ```python
 def objective(trial):
