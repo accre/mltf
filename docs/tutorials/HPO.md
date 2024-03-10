@@ -109,7 +109,7 @@ with mlflow.start_run():
 ```
 Note that one could also create an MLflow run for each individual trial by wrapping the `objective` function in an MLflow run as follows:
 
-```
+```python
 def objective(trial):
 
   #start MLflow run
@@ -164,6 +164,7 @@ def objective(trial):
     acc = ((100*correct)/(total+1))
     return acc
 ```
+
 {: .note }
 Download the full script used in this example [here](https://github.com/accre/mltf/blob/main/docs/modelScripts/hpo_pytorch_singlegpu.py)
 
