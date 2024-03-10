@@ -108,6 +108,8 @@ with mlflow.start_run():
   mlflow.log_metric("best_acc", study.best_value)
 ```
 Note that one could also create an MLflow run for each individual trial by wrapping the `objective` function in an MLflow run as follows:
+
+```
 def objective(trial):
 
   #start MLflow run
