@@ -8,7 +8,7 @@ Hyperparameter Optimization with Optuna
 ======================
 In place of grid or random search approaches to HPO, we recommend the use of the Optuna framework for Bayesian hyperparameter sampling and trial pruning (in models where intermediate results are available). Optuna can also integrate with MLflow for convinient logging of optimal parameters.
 
-In this tutorial, we take the model and training approach detailed in the [Single-GPU Training (Custom Mlflow)](({% link pytorch_singlGPU_customMLflow.md %}) tutorial to build our HPO on.
+In this tutorial, we take the model and training approach detailed in the [Single-GPU Training (Custom Mlflow)](https://docs.mltf.vu/tutorials/pytorch_singlGPU_customMLflow.html) tutorial to build our HPO on.
 
 First, we install the Optuna package:
 ```bash
