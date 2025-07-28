@@ -7,6 +7,7 @@ nav_order: 8
 GPUDirect Use
 ======================
 
+
 # CuFile Configuration Settings
 The CuFile library has a configuration file located by default at `/etc/cufile.json`. Users might find that the default configuration may not be suited for their workload/application needs and instead need to make modifications. To do this first make a local copy at some path.
 ```bash
