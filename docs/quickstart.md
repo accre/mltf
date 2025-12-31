@@ -121,5 +121,31 @@ use of the Scikit-learn library to train a random forrest regressor.
 ```python
 {% include _includes/includesnippet filename='modelScripts/train_sklearn.py' starttext='#!/usr/bin/env python3' endtext='predictions = rf.predict(X_test)' %}
 ```
+
+## Submitting a Job to the Cluster
+The submission of training jobs to the ACCRE cluster is handled by the [MLflow MLTF Gateway](https://github.com/accre/mltf-gateway/tree/main) and centered around MLflow projects. Once a project training is formatted as an MLflow Project (see the [Submitting Jobs to the Cluster](tutorials/MLprojects.md) tutorial) one can easily submit the Project to the ACCRE cluster by first installing the MLTF Gateway
+
+```bash
+pip install mltf-gateway
+```
+
+then configuring the client with
+
+```bash
+export MLTF_GATEWAY_URI=https://gateway-dev.mltf.k8s.accre.vanderbilt.edu
+mltf login
+```
+
+This will prompt you to visit a webpage, login using either CERN or Vanderbilt credentials, and copy a code from your terminal into the resulting page. Then, once you navigate to your MLflow Project directory, you can submit your training via the command
+
+```bash
+mltf submit
+```
+
+Once training completed, your training information can be accessed as mentioned via the MLflow UI as detailed above.
+
+
+
+
 {: .note }
 Download this script [here](https://github.com/accre/mltf/blob/main/docs/modelScripts/train_sklearn.py)

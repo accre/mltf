@@ -29,7 +29,7 @@ pip install --upgrade pip wheel
 
 To use the MLflow functionality, we now install MLflow itself to our virtual environment, along with some additional packages that will allow us to log in to the MLflow tracking server and submit jobs via the Slurm scheduler:
 ```bash
-pip install mlflow==2.9.2 mlflow-token mlflow-slurm
+pip install mlflow==2.9.2 mlflow-token mlflow-slurm mltf-gateway
 ```
 Every time a new terminal is used, the Python module must be loaded and the virtual environment activated. The packages installed, however, will remain in place. 
 
@@ -37,16 +37,16 @@ Note that, by using the MLflow Project approach, no further packages will need t
 
 ## Tracking Server Configuration
 
-We first need to set the URL to the tracking server. This is where your training outputs and metrics will be stored. 
+We first need to set the URL to the MLflow MLTF Gateway. 
 ```bash
-export MLFLOW_TRACKING_URI=https://mlflow-test.mltf.k8s.accre.vanderbilt.edu
+export MLTF_GATEWAY_URI=https://gateway-dev.mltf.k8s.accre.vanderbilt.edu
 ```
 (please refer to the additional tutorials on this page for further information on tracking metrics, storing artifacts, and storing data with MLflow)
-To log in to the MLflow tracking server, we can execute
+We then configure the client via the command
 ```bash
-export $(mlflow-token)
+export $mltf login
 ```
-This command will return a login page, where you can connect with your ACCRE credentials. These tokens last for 24 hours by default, so it’s necessary to periodically re-renew them.
+This will prompt you to visit a webpage, login using either CERN or Vanderbilt credentials, and copy a code from your terminal into the resulting page. You can verify things worked correctly with `mltf auth-status`.
 
 
 ## Creating an MLflow Project
@@ -102,14 +102,24 @@ Finally, we need to include a **slurm_config.json** file to relay our job's tech
 Note that, since this will run in a different machine and environment than that in your terminal, we need to pass on the required modules again. More information on configuration options can be found [here](https://github.com/ncsa/mlflow-slurm).
 
 ## Submitting MLflow Project
-Once the project is in place, we can submit it to the cluster by using the following command:
+Once the project is in place, we can submit it to the cluster by eecuting the command `mltf submit`, which should output something similar to
 ```bash
-mlflow run --backend slurm --backend-config <path to slurm_config.json> <path to MLflow Project dir.>
+$ mltf submit
+Find your MLFlow run at https://mlflow-test.mltf.k8s.accre.vanderbilt.edu/#/experiments/0/runs/1d0c653826144357aa90a7de2c6f6bf8
+Submitted project to MLTF: 962e168e-a61c-11f0-b4b0-bc2411853964
 ```
-When launched for the first time, this may take some time to run as it creates the virtual environment with the specified dependencies before submitting to the ACCRE cluster.
 
-## Accessing MLflow Run Information
-Accessing MLflow Run Information
-Upon successfully training and logging a model, MLflow’s UI can be accessed to see run details. This can be accessed via browser at: [mlflow-test.mltf.k8s.accre.vanderbilt.edu](mlflow-test.mltf.k8s.accre.vanderbilt.edu). You will need to use your ACCRE credentials to access the UI.
+You can list your tasks with `mltf list`
 
-Upon selecting the appropriate run from the list, the UI menu on the left allows the user to see model parameters, plot metrics, and export code to make predictions and reproduce runs.
+```bash
+$ mltf list
+Tasks:
+2025-10-10@16:03:35 - 962e168e-a61c-11f0-b4b0-bc2411853964
+```
+
+And check their status with `mltf show <task_id>`. If wanted, logs can be viewed with `--show-logs`.
+```bash
+$ mltf show 962e168e-a61c-11f0-b4b0-bc2411853964
+Status: RUNNING
+```
+Finally, any output artifacts, parameters or logs will be uploaded to the tracking server which can be accessed from the URL provided above (future improvements will add CLI access to artifacts). The tracking API is described [here](https://mlflow.org/docs/latest/ml/tracking/tracking-api/) and will let you upload arbitrary metrics (e.g. loss) and artifacts (e.g. output files)
